@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
@@ -37,12 +36,9 @@ public class IngredientController {
     }
 
     @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE, path = "/{id}")
-    public @ResponseBody ResponseEntity<?> update(@PathVariable UUID id, 
-           @RequestBody final CreateOrUpdateIngredientDTO dto
-    ){
-        IngredientDTO ing = this.ingredientApplication.get(id);
-        this.ingredientApplication.update(ing.id, dto);
-        return ResponseEntity.ok(ing);
+    public @ResponseBody ResponseEntity<?> update(@PathVariable UUID id, @RequestBody CreateOrUpdateIngredientDTO dto) {
+        this.ingredientApplication.update(id, dto);
+        return ResponseEntity.ok(dto);
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, path = "/{id}")
@@ -50,9 +46,9 @@ public class IngredientController {
         IngredientDTO ing = this.ingredientApplication.get(id);
         return ResponseEntity.ok(ing);
     }
-    
+
     @DeleteMapping(path = "/{id}")
-    void delete(@PathVariable UUID id){
+    void delete(@PathVariable UUID id) {
         this.ingredientApplication.delete(id);
     }
 

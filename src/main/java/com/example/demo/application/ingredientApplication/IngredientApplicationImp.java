@@ -13,8 +13,9 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class IngredientApplicationImp implements IngredientApplication {
-
+    
     private final IngredientRepository ingredientRepository;
+    
     @Autowired
     public IngredientApplicationImp(final IngredientRepository ingredientRepository) {
         this.ingredientRepository = ingredientRepository;
@@ -32,11 +33,7 @@ public class IngredientApplicationImp implements IngredientApplication {
     @Override
     public IngredientDTO get(UUID id) {
         Ingredient ingredient = this.ingredientRepository.findById(id).orElseThrow();
-        IngredientDTO ingredientDTO = new IngredientDTO();
-        ingredientDTO.id = ingredient.id;
-        ingredientDTO.name = ingredient.name;
-        ingredientDTO.price = ingredient.price;
-        return ingredientDTO;
+        return IngredientService.createDTO(ingredient);
     }
 
     @Override
