@@ -35,10 +35,15 @@ public class IngredientController {
         return ResponseEntity.status(201).body(ingredientDTO);
     }
 
-    @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE, path = "/{id}")
-    public @ResponseBody ResponseEntity<?> update(@PathVariable UUID id, @RequestBody CreateOrUpdateIngredientDTO dto) {
-        this.ingredientApplication.update(id, dto);
-        return ResponseEntity.ok(dto);
+    @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE, 
+    consumes = MediaType.APPLICATION_JSON_VALUE, 
+    path = "/{id}")
+    public @ResponseBody ResponseEntity<?> update(@PathVariable UUID id, 
+           @RequestBody final CreateOrUpdateIngredientDTO dto
+    ){
+        IngredientDTO ing = this.ingredientApplication.get(id);
+        this.ingredientApplication.update(ing.id, dto);
+        return ResponseEntity.ok(ing);
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, path = "/{id}")

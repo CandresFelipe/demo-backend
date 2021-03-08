@@ -1,4 +1,4 @@
-package com.example.demo.infraestructure;
+package com.example.demo.infraestructure.ingredientInfraestructure;
 
 import java.util.Optional;
 import java.util.UUID;

@@ -1,4 +1,4 @@
-package com.example.demo.infraestructure;
+package com.example.demo.infraestructure.ingredientInfraestructure;
 
 import java.util.UUID;
 import com.example.demo.domain.ingredientDomain.Ingredient;

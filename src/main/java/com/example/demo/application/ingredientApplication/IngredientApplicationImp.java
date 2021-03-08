@@ -33,7 +33,7 @@ public class IngredientApplicationImp implements IngredientApplication {
     @Override
     public IngredientDTO get(UUID id) {
         Ingredient ingredient = this.ingredientRepository.findById(id).orElseThrow();
-        return IngredientService.createDTO(ingredient);
+       return IngredientService.createDTO(ingredient);
     }
 
     @Override
