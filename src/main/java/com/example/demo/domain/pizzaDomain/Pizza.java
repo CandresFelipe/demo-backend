@@ -23,8 +23,33 @@ public class Pizza {
     public UUID id;
     @Column(nullable = false)
     public String name;
-    @Column(nullable = false)
-    public double price;
+
+    private Double price;
+
+    public void addIngredient(Ingredient ingredient) {
+        this.ingredients.add(ingredient);
+    }
+
+    public void setPrice(Double value) {
+        this.price = value;
+    }
+
+    // agregar la columna al getter y poner el nombre
+    @Column(nullable = false, name = "price")
+    public Double getPrice() {
+        return price;
+    }
+
+    public Double calculatePrice() {
+        Double total = 0.0;
+        for (Ingredient ingredient : this.ingredients) {
+            total += ingredient.price;
+        }
+        total = total * 1.2;
+        return total;
+    }
+
+
     @ManyToMany()
     @JoinTable()
     public Set<Ingredient> ingredients = new HashSet<Ingredient>();
