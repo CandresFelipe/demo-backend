@@ -33,5 +33,11 @@ public class PizzaRepositoryImp implements PizzaRepository {
     public void update(Pizza pizza) {
        this.pizzaJPARepository.save(pizza);    
     }
+
+    @Override
+    public void delete(Pizza pizza) {
+        this.pizzaJPARepository.delete(pizza);
+        
+    }
    
 }

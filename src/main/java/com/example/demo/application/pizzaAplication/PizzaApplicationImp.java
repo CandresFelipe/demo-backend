@@ -56,6 +56,12 @@ public class PizzaApplicationImp implements PizzaApplication {
         this.pizzaRepository.update(pizza);
     }
 
+    @Override
+    public void delete(UUID id) {
+        Pizza pizza = this.pizzaRepository.findById(id).orElseThrow();
+        this.pizzaRepository.delete(pizza);
+    }
+
     // @Override
     // public PizzaDTO get(UUID id) {
     // Pizza pizza = this.pizzaRepository.findById(id).orElseThrow();
@@ -66,14 +72,8 @@ public class PizzaApplicationImp implements PizzaApplication {
     // return pizzaDTO;
     // }
 
-    // @Override
-    // public void update(UUID id, CreateOrUpdatePizzaDTO dtos) {
-    // // Todo ?? para añadir o eliminar ingredientes y comentarios, donde ???
-    // }
 
-    // @Override
-    // public void delete(UUID id) {
-    // // todo
-    // }
+
+   
 
 }

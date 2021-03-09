@@ -8,6 +8,7 @@ import java.util.UUID;
 import com.example.demo.application.pizzaAplication.PizzaApplication;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -40,6 +41,12 @@ public class PizzaController {
     public @ResponseBody ResponseEntity<?> getPizza(@PathVariable UUID id){
         PizzaDTO pizzaDTO = this.pizzaApplication.get(id);
         return ResponseEntity.ok(pizzaDTO);
+    }
+
+    @DeleteMapping(path = "/{id}")
+    public void deletePizza(@PathVariable UUID id){
+        this.pizzaApplication.delete(id);
+
     }
 
 }
