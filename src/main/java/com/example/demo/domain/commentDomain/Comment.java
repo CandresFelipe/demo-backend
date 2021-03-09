@@ -22,7 +22,4 @@ public class Comment {
     public int rating;
     @Column(nullable = false)
     public String text;
-    // @ManyToOne(nullable = true)
-    // @JoinColumn(name = pizza_comment)
-    // private Pizza pizza;
 }

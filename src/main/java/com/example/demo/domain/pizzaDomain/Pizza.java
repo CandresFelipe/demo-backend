@@ -49,10 +49,10 @@ public class Pizza {
         return total;
     }
 
-
     @ManyToMany()
     @JoinTable()
     public Set<Ingredient> ingredients = new HashSet<Ingredient>();
+    
     @OneToMany()
     @JoinTable()
     public Set<Comment> comments = new HashSet<Comment>();

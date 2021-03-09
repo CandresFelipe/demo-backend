@@ -35,6 +35,7 @@ public class PizzaController {
         PizzaDTO pizzaDTO = this.pizzaApplication.add(dto);
         return ResponseEntity.status(201).body(pizzaDTO);
     }
+
     @GetMapping(path="/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody ResponseEntity<?> getPizza(@PathVariable UUID id){
         PizzaDTO pizzaDTO = this.pizzaApplication.get(id);

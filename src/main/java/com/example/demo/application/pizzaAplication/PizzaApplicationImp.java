@@ -20,9 +20,7 @@ public class PizzaApplicationImp implements PizzaApplication {
     private final IngredientRepository ingredientRepository;
 
     @Autowired
-    public PizzaApplicationImp(
-        final PizzaRepository pizzaRepository,
-        final IngredientRepository ingredientRepository) {
+    public PizzaApplicationImp(final PizzaRepository pizzaRepository, final IngredientRepository ingredientRepository) {
         this.pizzaRepository = pizzaRepository;
         this.ingredientRepository = ingredientRepository;
     }
@@ -31,11 +29,13 @@ public class PizzaApplicationImp implements PizzaApplication {
     public PizzaDTO add(CreateOrUpdatePizzaDTO dto) {
         // input
         Pizza pizza = PizzaService.create(dto);
-        for(UUID ingredientID : dto.ingredients){
+        for (UUID ingredientID : dto.ingredients) {
             Ingredient ingredient = this.ingredientRepository.findById(ingredientID).orElseThrow();
             pizza.ingredients.add(ingredient);
         }
-            this.pizzaRepository.add(pizza);
+        Double price = pizza.calculatePrice();
+        pizza.setPrice(price);
+        this.pizzaRepository.add(pizza);
         return PizzaService.createDTO(pizza);
     }
 
@@ -49,31 +49,31 @@ public class PizzaApplicationImp implements PizzaApplication {
     public void update(UUID id, CreateOrUpdatePizzaDTO dto) {
         Pizza pizza = this.pizzaRepository.findById(id).orElseThrow();
         pizza.name = dto.name;
-        for(UUID ingredientID : dto.ingredients){
+        for (UUID ingredientID : dto.ingredients) {
             Ingredient ingredient = this.ingredientRepository.findById(ingredientID).orElseThrow();
-            pizza.ingredients.add(ingredient);
+            pizza.addIngredient(ingredient);
         }
         this.pizzaRepository.update(pizza);
     }
 
     // @Override
     // public PizzaDTO get(UUID id) {
-    //     Pizza pizza = this.pizzaRepository.findById(id).orElseThrow();
-    //     PizzaDTO pizzaDTO = new PizzaDTO();
-    //     pizzaDTO.id = pizza.id;
-    //     pizzaDTO.name = pizza.name;
-    //     pizzaDTO.price = pizza.price;
-    //     return pizzaDTO;
+    // Pizza pizza = this.pizzaRepository.findById(id).orElseThrow();
+    // PizzaDTO pizzaDTO = new PizzaDTO();
+    // pizzaDTO.id = pizza.id;
+    // pizzaDTO.name = pizza.name;
+    // pizzaDTO.price = pizza.price;
+    // return pizzaDTO;
     // }
 
     // @Override
     // public void update(UUID id, CreateOrUpdatePizzaDTO dtos) {
-    //     // Todo ?? para añadir o eliminar ingredientes y comentarios, donde ???
+    // // Todo ?? para añadir o eliminar ingredientes y comentarios, donde ???
     // }
 
     // @Override
     // public void delete(UUID id) {
-    //     // todo
+    // // todo
     // }
 
 }
