@@ -6,8 +6,6 @@ import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-// import javax.persistence.JoinColumn;
-// import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.Type;
 
@@ -16,10 +14,23 @@ public class Comment {
     @Id
     @Type(type= "uuid-char")
     public UUID id;
-    @Column(nullable = false)
-    public Date date;
+
+    private Date date;
+
     @Column(nullable = false)
     public int rating;
+
     @Column(nullable = false)
     public String text;
+
+    @Column(nullable = false)
+    public Date getDate(){
+        return this.date;
+    }
+
+    public void SetDate(Date value){
+        this.date = value;
+    }
+
+
 }

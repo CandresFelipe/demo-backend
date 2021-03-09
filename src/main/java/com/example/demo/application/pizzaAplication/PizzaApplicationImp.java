@@ -2,11 +2,15 @@ package com.example.demo.application.pizzaAplication;
 
 import java.util.UUID;
 
+import com.example.demo.domain.commentDomain.Comment;
+import com.example.demo.domain.commentDomain.CommentService;
 import com.example.demo.domain.ingredientDomain.Ingredient;
 import com.example.demo.domain.ingredientDomain.IngredientRepository;
 import com.example.demo.domain.pizzaDomain.Pizza;
 import com.example.demo.domain.pizzaDomain.PizzaRepository;
 import com.example.demo.domain.pizzaDomain.PizzaService;
+import com.example.demo.dto.commentDto.CommentDTO;
+import com.example.demo.dto.commentDto.CreateCommentDTO;
 import com.example.demo.dto.pizzaDto.CreateOrUpdatePizzaDTO;
 import com.example.demo.dto.pizzaDto.PizzaDTO;
 
@@ -60,6 +64,26 @@ public class PizzaApplicationImp implements PizzaApplication {
     public void delete(UUID id) {
         Pizza pizza = this.pizzaRepository.findById(id).orElseThrow();
         this.pizzaRepository.delete(pizza);
+    }
+
+    @Override
+    public CommentDTO addComment(UUID id, CreateCommentDTO dto) {
+        Pizza pizza = this.pizzaRepository.findById(id).orElseThrow();
+        Comment comment = CommentService.create(dto);
+        pizza.comments.add(comment);
+        this.pizzaRepository.update(pizza);
+        return CommentService.createDTO(comment);
+    }
+
+    @Override
+    public PizzaDTO addIngredient(UUID id, UUID ingredientId) {
+        Pizza pizza = this.pizzaRepository.findById(id).orElseThrow();
+        Ingredient ingredient = this.ingredientRepository.findById(ingredientId).orElseThrow();
+        pizza.ingredients.add(ingredient);
+        Double price = pizza.calculatePrice();
+        pizza.setPrice(price);
+        this.pizzaRepository.update(pizza);
+        return PizzaService.createDTO(pizza);
     }
 
     // @Override

@@ -4,10 +4,11 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinTable;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
@@ -50,10 +51,9 @@ public class Pizza {
     }
 
     @ManyToMany()
-    @JoinTable()
     public Set<Ingredient> ingredients = new HashSet<Ingredient>();
     
-    @OneToMany()
-    @JoinTable()
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="pizza_id")
     public Set<Comment> comments = new HashSet<Comment>();
 }
