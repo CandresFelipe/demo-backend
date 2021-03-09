@@ -55,6 +55,8 @@ public class PizzaController {
     public void deletePizza(@PathVariable UUID id){
         this.pizzaApplication.delete(id);
     }
+
+
     @PostMapping(path="/{id}/comments",produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody ResponseEntity<?> createComment(@PathVariable UUID id, @RequestBody final CreateCommentDTO dto) {
         CommentDTO commentDTO = this.pizzaApplication.addComment(id, dto);
@@ -62,11 +64,19 @@ public class PizzaController {
     }
 
     @PostMapping(path="/{id}/ingredient/{ingredientID}",produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody ResponseEntity<?> createComment(
+    public @ResponseBody ResponseEntity<?> createIngredient(
     @PathVariable UUID id
     ,@PathVariable UUID ingredientID){
         PizzaDTO pizzaDTO = this.pizzaApplication.addIngredient(id,ingredientID);
         return ResponseEntity.status(201).body(pizzaDTO);
     }
-    //TODO delete
+
+    @PutMapping(path="/{id}/ingredient/{ingredientID}",produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody ResponseEntity<?> removeIngredient(
+    @PathVariable UUID id
+    ,@PathVariable UUID ingredientID){
+        PizzaDTO pizzaDTO = this.pizzaApplication.removeIngredient(id,ingredientID);
+        return ResponseEntity.status(201).body(pizzaDTO);
+    }
+    
 }
