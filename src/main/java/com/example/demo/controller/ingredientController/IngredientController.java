@@ -10,6 +10,7 @@ import com.example.demo.dto.ingredientDto.CreateOrUpdateIngredientDTO;
 import com.example.demo.dto.ingredientDto.IngredientDTO;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,16 +25,15 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
 @RestController
+@CrossOrigin(origins = "*", maxAge = 3600)
+
 @RequestMapping("api/v1/ingredients")
 public class IngredientController {
     private final IngredientApplication ingredientApplication;
-    private final IngredientRepository ingredientRepository;
 
     @Autowired
-    public IngredientController(final IngredientApplication ingredientApplication,
-            final IngredientRepository ingredientRepository) {
+    public IngredientController(final IngredientApplication ingredientApplication) {
         this.ingredientApplication = ingredientApplication;
-        this.ingredientRepository = ingredientRepository;
     }
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -64,7 +64,8 @@ public class IngredientController {
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> findIngredients(@RequestParam(required = false) String name,
             @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
-        List<IngredientProjection> result = this.ingredientRepository.findAll(name, page, size);
+        List<IngredientProjection> result = this.ingredientApplication.findAll(name, page, size);
         return ResponseEntity.ok(result);
     }
 }
+//TODO nos estamos saltando la segunda capa.

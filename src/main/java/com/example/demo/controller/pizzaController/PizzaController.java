@@ -5,11 +5,14 @@ import com.example.demo.dto.commentDto.CreateCommentDTO;
 import com.example.demo.dto.pizzaDto.CreateOrUpdatePizzaDTO;
 import com.example.demo.dto.pizzaDto.PizzaDTO;
 
+import java.util.List;
 import java.util.UUID;
 
 import com.example.demo.application.pizzaAplication.PizzaApplication;
+import com.example.demo.domain.pizzaDomain.PizzaProjection;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,6 +28,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
 @RestController
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("api/v1/pizzas")
 
 public class PizzaController {
@@ -80,6 +85,13 @@ public class PizzaController {
     ,@PathVariable UUID ingredientID){
         PizzaDTO pizzaDTO = this.pizzaApplication.removeIngredient(id,ingredientID);
         return ResponseEntity.status(201).body(pizzaDTO);
+    }
+
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> findPizzas(@RequestParam(required = false) String name,
+            @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+        List<PizzaProjection> result = this.pizzaApplication.findAll(name, page, size);
+        return ResponseEntity.ok(result);
     }
     
 }
