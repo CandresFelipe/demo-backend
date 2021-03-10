@@ -71,7 +71,10 @@ public class PizzaController {
         return ResponseEntity.status(201).body(pizzaDTO);
     }
 
-    @PutMapping(path="/{id}/ingredient/{ingredientID}",produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(
+    path="/{id}/ingredient/{ingredientID}",
+    produces = MediaType.APPLICATION_JSON_VALUE,
+    consumes = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody ResponseEntity<?> removeIngredient(
     @PathVariable UUID id
     ,@PathVariable UUID ingredientID){
