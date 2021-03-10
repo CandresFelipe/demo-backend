@@ -11,12 +11,15 @@ public interface PizzaProjection {
 
     public double getPrice();
 
-    List<PizzaIngredientProjection> getIngredient();
+    public List<PizzaIngredientProjection> getIngredients();
+    public List<PizzaCommentProjection> getComments();
 
     public interface PizzaIngredientProjection {
-        
         public String getName();
         public UUID getId();
     }
-    //TODO pizza comments
+    public interface PizzaCommentProjection{
+        public UUID getId();
+        public String getText();
+    }
 }

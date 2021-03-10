@@ -5,7 +5,6 @@ import java.util.UUID;
 
 import com.example.demo.application.ingredientApplication.IngredientApplication;
 import com.example.demo.domain.ingredientDomain.IngredientProjection;
-import com.example.demo.domain.ingredientDomain.IngredientRepository;
 import com.example.demo.dto.ingredientDto.CreateOrUpdateIngredientDTO;
 import com.example.demo.dto.ingredientDto.IngredientDTO;
 
@@ -68,4 +67,3 @@ public class IngredientController {
         return ResponseEntity.ok(result);
     }
 }
-//TODO nos estamos saltando la segunda capa.
