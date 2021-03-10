@@ -1,8 +1,11 @@
 package com.example.demo.controller.ingredientController;
 
+import java.util.List;
 import java.util.UUID;
 
 import com.example.demo.application.ingredientApplication.IngredientApplication;
+import com.example.demo.domain.ingredientDomain.IngredientProjection;
+import com.example.demo.domain.ingredientDomain.IngredientRepository;
 import com.example.demo.dto.ingredientDto.CreateOrUpdateIngredientDTO;
 import com.example.demo.dto.ingredientDto.IngredientDTO;
 
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.MediaType;
@@ -23,10 +27,13 @@ import org.springframework.http.ResponseEntity;
 @RequestMapping("api/v1/ingredients")
 public class IngredientController {
     private final IngredientApplication ingredientApplication;
+    private final IngredientRepository ingredientRepository;
 
     @Autowired
-    public IngredientController(final IngredientApplication ingredientApplication) {
+    public IngredientController(final IngredientApplication ingredientApplication,
+            final IngredientRepository ingredientRepository) {
         this.ingredientApplication = ingredientApplication;
+        this.ingredientRepository = ingredientRepository;
     }
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -35,12 +42,9 @@ public class IngredientController {
         return ResponseEntity.status(201).body(ingredientDTO);
     }
 
-    @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE, 
-    consumes = MediaType.APPLICATION_JSON_VALUE, 
-    path = "/{id}")
-    public @ResponseBody ResponseEntity<?> update(@PathVariable UUID id, 
-           @RequestBody final CreateOrUpdateIngredientDTO dto
-    ){
+    @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE, path = "/{id}")
+    public @ResponseBody ResponseEntity<?> update(@PathVariable UUID id,
+            @RequestBody final CreateOrUpdateIngredientDTO dto) {
         IngredientDTO ing = this.ingredientApplication.get(id);
         this.ingredientApplication.update(ing.id, dto);
         return ResponseEntity.ok(ing);
@@ -57,4 +61,10 @@ public class IngredientController {
         this.ingredientApplication.delete(id);
     }
 
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> findIngredients(@RequestParam(required = false) String name,
+            @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+        List<IngredientProjection> result = this.ingredientRepository.findAll(name, page, size);
+        return ResponseEntity.ok(result);
+    }
 }
