@@ -101,9 +101,9 @@ public class PizzaApplicationImp implements PizzaApplication {
     }
 
     @Override
-    public List<PizzaProjection> findAll(String name, int page, int size) {
-        return this.pizzaRepository.findAll(name, page, size);
-    }
+    public PizzaProjection findAll(UUID id){
+        return this.pizzaRepository.findAll(id);
+    };
 
     @Override
     public List<PizzaListProjection> findPizzaListAll(String name, int page, int size) {

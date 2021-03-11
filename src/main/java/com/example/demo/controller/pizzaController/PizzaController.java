@@ -46,11 +46,6 @@ public class PizzaController {
         return ResponseEntity.status(201).body(pizzaDTO);
     }
 
-    @GetMapping(path="/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody ResponseEntity<?> getPizza(@PathVariable UUID id){
-        PizzaDTO pizzaDTO = this.pizzaApplication.get(id);
-        return ResponseEntity.ok(pizzaDTO);
-    }
     @PutMapping(path="/{id}",produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody ResponseEntity<?> updatePizza(@PathVariable UUID id, @RequestBody final CreateOrUpdatePizzaDTO dto) {
         PizzaDTO pizzaDTO = this.pizzaApplication.get(id);
@@ -88,10 +83,9 @@ public class PizzaController {
         return ResponseEntity.status(201).body(pizzaDTO);
     }
 
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> findPizzas(@RequestParam(required = false) String name,
-            @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
-        List<PizzaProjection> result = this.pizzaApplication.findAll(name, page, size);
+    @GetMapping(path="/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> findPizza(@PathVariable UUID id) {
+        PizzaProjection result = this.pizzaApplication.findAll(id);
         return ResponseEntity.ok(result);
     }
 

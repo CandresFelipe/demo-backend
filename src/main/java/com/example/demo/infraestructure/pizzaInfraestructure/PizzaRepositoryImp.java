@@ -46,9 +46,8 @@ public class PizzaRepositoryImp implements PizzaRepository {
     }
 
     @Override
-    public List<PizzaProjection> findAll(String name, int page, int size) {
-        return this.pizzaJPARepository.findByCriteria(name,
-                PageRequest.of(page, size, Sort.by("name").descending()));
+    public PizzaProjection findAll(UUID id) {
+        return this.pizzaJPARepository.findByCriteria(id);
     }
 
     @Override

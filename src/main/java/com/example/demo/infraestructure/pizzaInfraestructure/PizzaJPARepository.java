@@ -13,12 +13,12 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 public interface PizzaJPARepository extends JpaRepository<Pizza, UUID> {
-    @Query("SELECT p FROM Pizza p WHERE (:name is NULL or name like %:name%)")
-   public List<PizzaProjection> findByCriteria(@Param("name") String name, Pageable page);
+    @Query("SELECT p FROM Pizza p WHERE id = :id")
+   public PizzaProjection findByCriteria(@Param("id") UUID id);
 
    @Query("SELECT p FROM Pizza p WHERE (:name is NULL or name like %:name%)")
    public List<PizzaListProjection> findPizzaListByCriteria(@Param("name") String name, Pageable page);
-    
+     
 }
 
 //TODO arreglar join jpql

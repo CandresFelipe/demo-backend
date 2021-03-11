@@ -6,12 +6,14 @@ import java.util.UUID;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
+import com.example.demo.domain.Image.Image;
 import com.example.demo.domain.commentDomain.Comment;
 import com.example.demo.domain.ingredientDomain.Ingredient;
 
@@ -24,8 +26,10 @@ public class Pizza {
     public UUID id;
     @Column(nullable = false)
     public String name;
-
     private Double price;
+    
+    @Embedded
+    public Image image;
 
     public void addIngredient(Ingredient ingredient) {
         this.ingredients.add(ingredient);

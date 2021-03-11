@@ -9,6 +9,6 @@ public interface PizzaRepository {
     public Optional<Pizza> findById(UUID id);  
     public void update(Pizza pizza);
     public void delete(Pizza pizza);
-    public List <PizzaProjection> findAll(String name, int page, int size);
+    public PizzaProjection findAll(UUID id);
     public List <PizzaListProjection> findPizzaListAll(String name, int page, int size); 
 }

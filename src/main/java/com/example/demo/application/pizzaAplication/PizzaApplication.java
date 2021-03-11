@@ -26,7 +26,7 @@ public interface PizzaApplication {
 
     public PizzaDTO removeIngredient(UUID id, UUID ingredientId);
 
-    public List <PizzaProjection> findAll(String name, int page, int size);
+    public PizzaProjection findAll(UUID id);
     
     public List <PizzaListProjection> findPizzaListAll(String name, int page, int size);
 }
