@@ -3,6 +3,7 @@ package com.example.demo.application.pizzaAplication;
 import java.util.List;
 import java.util.UUID;
 
+import com.example.demo.domain.pizzaDomain.PizzaListProjection;
 import com.example.demo.domain.pizzaDomain.PizzaProjection;
 import com.example.demo.dto.commentDto.CommentDTO;
 import com.example.demo.dto.commentDto.CreateCommentDTO;
@@ -26,4 +27,6 @@ public interface PizzaApplication {
     public PizzaDTO removeIngredient(UUID id, UUID ingredientId);
 
     public List <PizzaProjection> findAll(String name, int page, int size);
+    
+    public List <PizzaListProjection> findPizzaListAll(String name, int page, int size);
 }

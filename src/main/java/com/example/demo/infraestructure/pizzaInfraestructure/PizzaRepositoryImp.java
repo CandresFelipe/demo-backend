@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import com.example.demo.domain.pizzaDomain.Pizza;
+import com.example.demo.domain.pizzaDomain.PizzaListProjection;
 import com.example.demo.domain.pizzaDomain.PizzaProjection;
 import com.example.demo.domain.pizzaDomain.PizzaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +49,12 @@ public class PizzaRepositoryImp implements PizzaRepository {
     public List<PizzaProjection> findAll(String name, int page, int size) {
         return this.pizzaJPARepository.findByCriteria(name,
                 PageRequest.of(page, size, Sort.by("name").descending()));
+    }
+
+    @Override
+    public List<PizzaListProjection> findPizzaListAll(String name, int page, int size) {
+         return this.pizzaJPARepository.findPizzaListByCriteria(name,
+         PageRequest.of(page, size, Sort.by("name").descending()));
     }
    
 }
