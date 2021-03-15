@@ -5,11 +5,19 @@ import java.util.UUID;
 
 
 public interface PizzaProjection {
+
+
     public String getName();
 
     public UUID getId();
 
     public double getPrice();
+    
+    public Image getImage();
+
+    public interface Image{
+        public String getUrl();
+    }
 
     public List<PizzaIngredientProjection> getIngredients();
     public List<PizzaCommentProjection> getComments();
