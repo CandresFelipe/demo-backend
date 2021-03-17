@@ -1,5 +1,6 @@
 package com.example.demo.domain.pizzaDomain;
 
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -29,5 +30,7 @@ public interface PizzaProjection {
     public interface PizzaCommentProjection{
         public UUID getId();
         public String getText();
+        public int getRating();
+        public Date getDate();
     }
 }
