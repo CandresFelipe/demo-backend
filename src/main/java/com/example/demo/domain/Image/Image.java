@@ -1,6 +1,5 @@
 package com.example.demo.domain.Image;
 
-
 import javax.persistence.Embeddable;
 
 
