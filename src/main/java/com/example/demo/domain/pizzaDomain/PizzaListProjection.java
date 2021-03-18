@@ -11,6 +11,6 @@ public interface PizzaListProjection {
     public double getPrice();
 
     public interface Image{
-        public String getUrl();
+        public String getPublic_id();
     }
 }
