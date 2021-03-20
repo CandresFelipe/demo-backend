@@ -1,5 +1,6 @@
 package com.example.demo.application.pizzaAplication;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
@@ -40,7 +41,7 @@ public class PizzaApplicationImp implements PizzaApplication {
             Ingredient ingredient = this.ingredientRepository.findById(ingredientID).orElseThrow();
             pizza.ingredients.add(ingredient);
         }
-        Double price = pizza.calculatePrice();
+        BigDecimal price = pizza.calculatePrice();
         pizza.setPrice(price);
         this.pizzaRepository.add(pizza);
         return PizzaService.createDTO(pizza);
@@ -83,7 +84,7 @@ public class PizzaApplicationImp implements PizzaApplication {
         Pizza pizza = this.pizzaRepository.findById(id).orElseThrow();
         Ingredient ingredient = this.ingredientRepository.findById(ingredientId).orElseThrow();
         pizza.ingredients.add(ingredient);
-        Double price = pizza.calculatePrice();
+        BigDecimal price = pizza.calculatePrice();
         pizza.setPrice(price);
         this.pizzaRepository.update(pizza);
         return PizzaService.createDTO(pizza);
@@ -94,7 +95,7 @@ public class PizzaApplicationImp implements PizzaApplication {
         Pizza pizza = this.pizzaRepository.findById(id).orElseThrow();
         Ingredient ingredient = this.ingredientRepository.findById(ingredientId).orElseThrow();
         pizza.ingredients.remove(ingredient);
-        Double price = pizza.calculatePrice();
+        BigDecimal price = pizza.calculatePrice();
         pizza.setPrice(price);
         this.pizzaRepository.update(pizza);
         return PizzaService.createDTO(pizza);
